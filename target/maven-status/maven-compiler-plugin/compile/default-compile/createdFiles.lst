@@ -1,2 +1,11 @@
 com\mycompany\Ferramentas\ConexaoBancoDeDadosMySql.class
+com\mycompany\Visao\Despesas$1.class
+com\mycompany\Visao\Despesas.class
+com\mycompany\Ferramentas\Constantes.class
+com\mycompany\Ferramentas\DadosTemporarios.class
+com\mycompany\Dao\DaoPessoa.class
 com\mycompany\gerenciamentotarefaspessoais\GerenciamentoTarefasPessoais.class
+com\mycompany\Modelo\ModPessoa.class
+com\mycompany\Modelo\ModDespesas.class
+com\mycompany\Dao\DaoCategoria.class
+com\mycompany\Modelo\ModCategoria.class

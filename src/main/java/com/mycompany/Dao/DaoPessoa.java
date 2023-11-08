@@ -5,6 +5,7 @@
 package com.mycompany.Dao;
 
 import com.mycompany.Ferramentas.ConexaoBancoDeDadosMySql;
+import java.sql.ResultSet;
 
 /**
  *
@@ -109,5 +110,27 @@ public class DaoPessoa extends ConexaoBancoDeDadosMySql{
             System.out.println(e.getMessage());
             return false;
         }
+    }
+     
+     public ResultSet recuperaSenha(String usuario){
+        try{
+            sql = 
+                " SELECT                            " +
+                "   ID,                             " +
+                "   SENHA                           " +
+                " FROM                              " +
+                "   PESSOA                          " +
+                " WHERE USUARIO = ?                 " ;
+            
+            setStatement(getConexao().prepareStatement(sql));
+            
+            getStatement().setString(1, usuario);
+            
+            setResultado(getStatement().executeQuery());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        return getResultado();
     }
 }
