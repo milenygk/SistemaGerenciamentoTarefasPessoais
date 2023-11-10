@@ -17,13 +17,13 @@ public class ModDespesas {
     private String descricao;
     private String categoria;
     private int valor;
-    private String quantidade;
+    private int quantidade;
     private int total;
 
     public ModDespesas() {
     }
 
-    public ModDespesas(int id, int id_categoria, Date data, String descricao, String categoria, int valor, String quantidade, int total) {
+    public ModDespesas(int id, int id_categoria, Date data, String descricao, String categoria, int valor, int quantidade, int total) {
         this.id = id;
         this.idCategoria = id_categoria;
         this.data = data;
@@ -74,11 +74,11 @@ public class ModDespesas {
         this.idCategoria = id_categoria;
     }
 
-    public String getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(String quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 

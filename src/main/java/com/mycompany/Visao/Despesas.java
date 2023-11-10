@@ -4,19 +4,138 @@
  */
 package com.mycompany.Visao;
 
+import com.mycompany.Dao.DaoDespesas;
+import com.mycompany.Ferramentas.Constantes;
+import com.mycompany.Ferramentas.DadosTemporarios;
+import com.mycompany.Ferramentas.Formularios;
+import com.mycompany.Modelo.ModDespesas;
+import java.sql.Date;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mileny.1948
  */
 public class Despesas extends javax.swing.JFrame {
 
+    private Object id;
+
     /**
      * Creates new form Despesas
      */
     public Despesas() {
         initComponents();
-    }
+        
+         if(!existeDadosTemporarios()){
+             DaoDespesas daoDespesas = new DaoDespesas();
 
+            int id = daoDespesas.buscarProximoId(); 
+            if (id > 0)
+                tfId.setText(String.valueOf(id));
+            
+            btnAcao.setText(Constantes.BTN_SALVAR_TEXT);
+            btnExcluir.setVisible(false);
+        }else{
+            btnAcao.setText(Constantes.BTN_ALTERAR_TEXT);
+            btnExcluir.setVisible(true);
+        }
+         tfId.setVisible(false);
+    }
+    
+     private Boolean existeDadosTemporarios(){        
+        if(DadosTemporarios.tempObject instanceof ModDespesas){
+            int id = ((ModDespesas) DadosTemporarios.tempObject).getId();
+            Date data = ((ModDespesas) DadosTemporarios.tempObject).getData();
+            String descricao = ((ModDespesas) DadosTemporarios.tempObject).getDescricao();
+            String categoria = ((ModDespesas) DadosTemporarios.tempObject).getCategoria();
+            int quantidade = ((ModDespesas) DadosTemporarios.tempObject).getQuantidade();
+            int valor = ((ModDespesas) DadosTemporarios.tempObject).getValor(); 
+            int total = ((ModDespesas) DadosTemporarios.tempObject).getTotal(); 
+            
+            tfId.setText(String.valueOf(id));
+            tfData.setText(String.valueOf(String.valueOf(data)));
+            taDescricao.setText(String.valueOf(descricao));
+            tfCategoria.setText(categoria);
+            tfQuantidade.setText(String.valueOf(quantidade));
+            tfValor.setText(String.valueOf(valor));
+            tfValorTotal.setText(String.valueOf(total));
+            
+            DadosTemporarios.tempObject = null;
+            
+            return true;
+        }else
+            return false;
+        }
+
+       private void inserir(int data, String descricao, String categoria, int quantidade, int valor, int total){
+        DaoDespesas daoDespesas = new DaoDespesas();
+        
+        if (daoDespesas.alterar(Integer.parseInt(tfId.getText()), Integer.parseInt(tfData.getText()), Integer.parseInt(tfQuantidade.getText()), Integer.parseInt(tfValor.getText()), Integer.parseInt(tfValorTotal.getText()), taDescricao.getText(), tfCategoria.getText())){
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+            
+            tfId.setText(String.valueOf(id));
+            tfData.setText(String.valueOf(String.valueOf(data)));
+            taDescricao.setText(String.valueOf(descricao));
+            tfCategoria.setText(categoria);
+            tfQuantidade.setText(String.valueOf(quantidade));
+            tfValor.setText(String.valueOf(valor));
+            tfValorTotal.setText(String.valueOf(total));
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar!");
+        }
+       }
+       
+        private void alterar(int data, String descricao, String categoria, int quantidade, int valor, int total){
+       DaoDespesas daoDespesas = new DaoDespesas();
+        
+        if (daoDespesas.alterar(Integer.parseInt(tfId.getText()), Integer.parseInt(tfData.getText()), Integer.parseInt(tfQuantidade.getText()), Integer.parseInt(tfValor.getText()), Integer.parseInt(tfValorTotal.getText()), taDescricao.getText(), tfCategoria.getText())){
+            JOptionPane.showMessageDialog(null, "Categoria alterada com sucesso!");
+            
+             tfId.setText(String.valueOf(id));
+            tfData.setText(String.valueOf(String.valueOf(data)));
+            taDescricao.setText(String.valueOf(descricao));
+            tfCategoria.setText(categoria);
+            tfQuantidade.setText(String.valueOf(quantidade));
+            tfValor.setText(String.valueOf(valor));
+            tfValorTotal.setText(String.valueOf(total));
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar!");
+        }
+        
+        ((ListDespesas) Formularios.Listdespesas).listarTodos();
+        
+        dispose();
+    }       
+
+       private void excluir(int data, String descricao, String categoria, int quantidade, int valor, int total){
+        DaoDespesas daoDespesas = new DaoDespesas();
+        
+        if (daoDespesas.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Despesa " + taDescricao.getText() + " excluída com sucesso!");
+            
+            tfId.setText(String.valueOf(id));
+            tfData.setText(String.valueOf(String.valueOf(data)));
+            taDescricao.setText(String.valueOf(descricao));
+            tfCategoria.setText(categoria);
+            tfQuantidade.setText(String.valueOf(quantidade));
+            tfValor.setText(String.valueOf(valor));
+            tfValorTotal.setText(String.valueOf(total));
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir!");
+        }
+        
+        ((ListDespesas) Formularios.Listdespesas).listarTodos();
+        
+        dispose();
+    }
+       
+       private void calculaTotalCompra(int valor, int quantidade){
+        int total = valor * quantidade;
+        
+        tfValorTotal.setText(String.valueOf(total));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +160,9 @@ public class Despesas extends javax.swing.JFrame {
         tfValorTotal = new javax.swing.JTextField();
         btnAcao = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        tfQuantidade = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        tfId = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -61,9 +183,20 @@ public class Despesas extends javax.swing.JFrame {
         jLabel6.setText("Total");
 
         btnAcao.setText("SALVAR");
-        btnAcao.setActionCommand("SALVAR");
+        btnAcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcaoActionPerformed(evt);
+            }
+        });
 
         btnExcluir.setText("EXCLUIR");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Quantidade:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,59 +206,62 @@ public class Despesas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnAcao)
+                        .addGap(113, 113, 113)
+                        .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                        .addComponent(btnExcluir)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(tfValor, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(tfValorTotal))
-                        .addGap(16, 16, 16))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAcao)
+                            .addComponent(tfCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluir)
-                        .addContainerGap())))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7)
+                            .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel7))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
-                .addComponent(jLabel3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
-                .addComponent(jLabel4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAcao)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnExcluir)
+                    .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -148,6 +284,22 @@ public class Despesas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
+           if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT)
+            inserir();
+        else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT)
+            alterar();
+    }//GEN-LAST:event_btnAcaoActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int escolha =
+              JOptionPane.showConfirmDialog(null,
+                      "Deseja realmente excluir?" + taDescricao.getText() + "?");
+      
+      if(escolha == JOptionPane.YES_OPTION)
+          excluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,12 +345,27 @@ public class Despesas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea taDescricao;
     private javax.swing.JTextField tfCategoria;
     private javax.swing.JTextField tfData;
+    private javax.swing.JTextField tfId;
+    private javax.swing.JTextField tfQuantidade;
     private javax.swing.JTextField tfValor;
     private javax.swing.JTextField tfValorTotal;
     // End of variables declaration//GEN-END:variables
+
+    private void inserir() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void alterar() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void excluir() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
