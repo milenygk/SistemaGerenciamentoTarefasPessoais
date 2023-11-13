@@ -6,6 +6,7 @@ package com.mycompany.Visao;
 
 import com.mycompany.Dao.DaoDespesas;
 import static com.mycompany.Ferramentas.ConexaoBancoDeDadosMySql.getStatement;
+import com.mycompany.Ferramentas.Formularios;
 import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
 
@@ -262,6 +263,11 @@ public class ListDespesas extends javax.swing.JFrame {
 
         btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCadastrar.setText("CADASTRAR DESPESA");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -352,6 +358,13 @@ public class ListDespesas extends javax.swing.JFrame {
                 break;
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+          if (Formularios.despesas == null)
+            Formularios.despesas = new Despesas();
+
+        Formularios.despesas.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
      * @param args the command line arguments

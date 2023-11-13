@@ -2,6 +2,7 @@ com\mycompany\Ferramentas\Formularios.class
 com\mycompany\Ferramentas\ConexaoBancoDeDadosMySql.class
 com\mycompany\Visao\Despesas.class
 com\mycompany\Visao\ListDespesas.class
+com\mycompany\Visao\ListDespesas$4.class
 com\mycompany\Visao\ListDespesas$2.class
 com\mycompany\Dao\DaoPessoa.class
 com\mycompany\Visao\Despesas$2.class

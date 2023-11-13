@@ -71,7 +71,7 @@ public class Despesas extends javax.swing.JFrame {
        private void inserir(int data, String descricao, String categoria, int quantidade, int valor, int total){
         DaoDespesas daoDespesas = new DaoDespesas();
         
-        if (daoDespesas.alterar(Integer.parseInt(tfId.getText()), Integer.parseInt(tfData.getText()), Integer.parseInt(tfQuantidade.getText()), Integer.parseInt(tfValor.getText()), Integer.parseInt(tfValorTotal.getText()), taDescricao.getText(), tfCategoria.getText())){
+        if (daoDespesas.inserir(Integer.parseInt(tfId.getText()), Integer.parseInt(tfData.getText()), Integer.parseInt(tfQuantidade.getText()), Integer.parseInt(tfValor.getText()), Integer.parseInt(tfValorTotal.getText()), taDescricao.getText(), tfCategoria.getText())){
             JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
             
             tfId.setText(String.valueOf(id));
@@ -103,7 +103,7 @@ public class Despesas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possível alterar!");
         }
         
-        ((ListDespesas) Formularios.Listdespesas).listarTodos();
+        ((ListDespesas) Formularios.ListDespesas).listarTodos();
         
         dispose();
     }       
@@ -125,7 +125,7 @@ public class Despesas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Não foi possível excluir!");
         }
         
-        ((ListDespesas) Formularios.Listdespesas).listarTodos();
+        ((ListDespesas) Formularios.ListDespesas).listarTodos();
         
         dispose();
     }
@@ -163,10 +163,13 @@ public class Despesas extends javax.swing.JFrame {
         tfQuantidade = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfId = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel2.setText("Data");
 
@@ -198,6 +201,10 @@ public class Despesas extends javax.swing.JFrame {
 
         jLabel7.setText("Quantidade:");
 
+        tfId.setBackground(new java.awt.Color(204, 204, 255));
+
+        jLabel8.setText("CADASTRO DE DESPESAS");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -228,12 +235,17 @@ public class Despesas extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27))))
+                        .addGap(27, 27, 27))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel7))
@@ -346,6 +358,7 @@ public class Despesas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea taDescricao;

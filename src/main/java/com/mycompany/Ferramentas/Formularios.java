@@ -12,11 +12,15 @@ import javax.swing.JFrame;
  */
 public class Formularios {
     
-    //    CATEGORIA
+ //           CATEGORIA
     public static JFrame cadCategoria;
     public static JFrame listCategoria;
     
-//    DESPESAS
+//            DESPESAS
     public static JFrame despesas;
-    public static JFrame Listdespesas;
+    public static JFrame ListDespesas;
+    
+//            PALNEJAMENTO
+    public static JFrame planejamentoDiario;
+    public static JFrame ListPlanejamentoDiario;
 }

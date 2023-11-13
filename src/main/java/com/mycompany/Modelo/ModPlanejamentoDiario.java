@@ -10,7 +10,7 @@ import java.sql.Date;
  *
  * @author mileny.1948
  */
-public class ModPessoa {
+public class ModPlanejamentoDiario {
     private int id;
     private int idCategoria;
     private Date data;
@@ -19,7 +19,7 @@ public class ModPessoa {
     private String rotinaNoite;
     private String tarfasPontuais;
 
-    public ModPessoa(int id, int idCategoria, Date data, String rotinaManha, String rotinaTarde, String rotinaNoite, String tarfasPontuais) {
+    public ModPlanejamentoDiario(int id, int idCategoria, Date data, String rotinaManha, String rotinaTarde, String rotinaNoite, String tarfasPontuais) {
         this.id = id;
         this.idCategoria = idCategoria;
         this.data = data;
@@ -29,7 +29,7 @@ public class ModPessoa {
         this.tarfasPontuais = tarfasPontuais;
     }
 
-    public ModPessoa() {
+    public ModPlanejamentoDiario() {
     }
 
     public Date getData() {
@@ -87,10 +87,9 @@ public class ModPessoa {
     public void setTarfasPontuais(String tarfasPontuais) {
         this.tarfasPontuais = tarfasPontuais;
     }
-
- @Override
-    public String toString() {
-        return "ModDespesas{"+ "id=" + id + ", idCategoria=" + idCategoria + ", data=" + data + ", rotinaManha=" + rotinaManha +  ", rotinaNoite=" + rotinaNoite + ",rotinaTarde=" +rotinaTarde + ", tarfasPontuais=" + tarfasPontuais + '}';
-    }    
     
+     @Override
+    public String toString() {
+        return "ModDespesas{"+ "id=" + id + ", idCategoria=" + idCategoria + ", data=" + data + ", rotinaManha=" + rotinaManha +  ", rotinaNoite=" + rotinaNoite + ", rotinaTarde=" + rotinaTarde + ", tarfasPontuais=" + tarfasPontuais + ", quantidade=" +'}';
+    }
 }

@@ -324,4 +324,8 @@ public class DaoDespesas {
     public ResultSet listarPorCategoria(int quantidade) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public boolean inserir(int parseInt, int parseInt0, int parseInt1, int parseInt2, int parseInt3, String text, String text0) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

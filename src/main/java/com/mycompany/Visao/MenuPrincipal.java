@@ -74,9 +74,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         labelConta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelConta.setText("Minha Conta");
+        labelConta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelMenu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         labelMenu.setText("Menu:");
+        labelMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -85,9 +87,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelMenu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addComponent(labelConta)
-                .addGap(66, 66, 66))
+                .addGap(73, 73, 73))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,39 +103,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         labelPlanejamento.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelPlanejamento.setText("Planejamentos");
+        labelPlanejamento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelHabitos.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelHabitos.setText("Hábitos");
+        labelHabitos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelHobbies.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelHobbies.setText("Hobbies");
+        labelHobbies.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelObrigacoes.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelObrigacoes.setText("Obrigações");
+        labelObrigacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelTrabalho.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelTrabalho.setText("Trabalho");
+        labelTrabalho.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelEstudo.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelEstudo.setText("Estudo");
+        labelEstudo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelMetas.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelMetas.setText("Metas");
+        labelMetas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelViagens.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelViagens.setText("Viangens");
+        labelViagens.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         LabelBlocoDeNotas.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         LabelBlocoDeNotas.setText("Bloco de Notas");
+        LabelBlocoDeNotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         labelCalendario.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelCalendario.setText("Calendario");
+        labelCalendario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         labelFinanceiro.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         labelFinanceiro.setText("Financeiro");
+        labelFinanceiro.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         labelFinanceiro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelFinanceiroMouseClicked(evt);
@@ -176,13 +189,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelPlanejamento)
                             .addComponent(labelMetas))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(labelHabitos))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelFinanceiro)))
+                            .addComponent(labelHabitos)
+                            .addComponent(labelFinanceiro, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelHobbies)
@@ -223,10 +233,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelFinanceiroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFinanceiroMouseClicked
-           if (Formularios.despesas == null)
-            Formularios.despesas = new Despesas();
+           if (Formularios.ListDespesas == null)
+            Formularios.ListDespesas = new ListDespesas();
 
-        Formularios.despesas.setVisible(true);
+        Formularios.ListDespesas.setVisible(true);
     }//GEN-LAST:event_labelFinanceiroMouseClicked
 
     /**
